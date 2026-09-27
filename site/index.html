@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мера — конвертер единиц</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header__content">
+      <a class="logo" href="index.html">⌁ Мера</a>
+      <nav class="navigation" aria-label="Основная навигация">
+        <a href="index.html">Главная</a>
+        <a href="catalog.html">Каталог</a>
+        <a href="#about">О проекте</a>
+      </nav>
+      <a class="menu-button" href="catalog.html" aria-label="Открыть каталог">☰</a>
+    </div>
+  </header>
+  <main class="container main">
+    <section class="intro">
+      <h1>Конвертер единиц измерения</h1>
+      <p>Введите значение и выберите единицы измерения.</p>
+    </section>
+    <section class="panel" aria-labelledby="converter-title">
+      <h2 id="converter-title" class="visually-hidden">Конвертер</h2>
+      <form class="converter">
+        <label>Значение<input type="number" value="100"></label>
+        <label>Из<select><option>Метры</option><option>Сантиметры</option><option>Километры</option></select></label>
+        <label>В<select><option>Сантиметры</option><option>Метры</option><option>Миллиметры</option></select></label>
+        <button type="button">Конвертировать</button>
+      </form>
+      <p class="result">Результат: 10 000 см</p>
+    </section>
+    <section class="categories">
+      <h2>Популярные категории</h2>
+      <div class="category-grid">
+        <a class="category-card" href="catalog.html">📏 <span>Длина</span></a>
+        <a class="category-card" href="catalog.html">⚖ <span>Масса</span></a>
+        <a class="category-card" href="catalog.html">◷ <span>Время</span></a>
+        <a class="category-card" href="catalog.html">🌡 <span>Температура</span></a>
+      </div>
+    </section>
+  </main>
+  <footer id="about" class="footer"><div class="container">© 2026 Мера — справочник единиц измерения</div></footer>
+</body>
+</html>

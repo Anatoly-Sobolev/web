@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Каталог единиц — Мера</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header__content">
+      <a class="logo" href="index.html">⌁ Мера</a>
+      <nav class="navigation" aria-label="Основная навигация">
+        <a href="index.html">Главная</a><a href="catalog.html">Каталог</a><a href="index.html#about">О проекте</a>
+      </nav>
+      <a class="menu-button" href="index.html" aria-label="Перейти на главную">☰</a>
+    </div>
+  </header>
+  <main class="container main">
+    <section class="intro"><h1>Каталог единиц</h1><p>Найдите нужную единицу измерения.</p></section>
+    <form class="filters">
+      <label>Поиск по названию или обозначению<input type="search" placeholder="Введите запрос, например, метр..."></label>
+      <label>Категория<select><option>Все категории</option><option>Длина</option><option>Масса</option><option>Время</option><option>Температура</option></select></label>
+    </form>
+    <section class="unit-list" aria-label="Единицы измерения">
+      <article class="unit-card"><div><a href="unit.html">Метр</a><span class="symbol">м</span></div><p>Категория: <strong>Длина</strong></p><p>Основная единица длины в СИ</p></article>
+      <article class="unit-card"><div><a href="unit.html">Километр</a><span class="symbol">км</span></div><p>Категория: <strong>Длина</strong></p><p>1000 метров</p></article>
+      <article class="unit-card"><div><a href="unit.html">Сантиметр</a><span class="symbol">см</span></div><p>Категория: <strong>Длина</strong></p><p>0.01 метра</p></article>
+      <article class="unit-card"><div><a href="unit.html">Миллиметр</a><span class="symbol">мм</span></div><p>Категория: <strong>Длина</strong></p><p>0.001 метра</p></article>
+    </section>
+  </main>
+  <footer class="footer"><div class="container">© 2026 Мера — справочник единиц измерения</div></footer>
+</body>
+</html>
