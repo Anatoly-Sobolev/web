@@ -4,9 +4,9 @@ const path = require('path');
 const output = path.join(__dirname, '..', 'design', 'prototypes.drawio');
 
 const screens = [
-  ['Главная и конвертер', ['Шапка: логотип, Каталог, О проекте', 'Заголовок и краткое описание', 'Конвертер: значение, из, в, результат', 'Популярные категории', 'Подвал']],
-  ['Каталог единиц', ['Шапка', 'Поиск по названию или обозначению', 'Фильтр по категории', 'Таблица единиц измерения', 'Подвал']],
-  ['Карточка единицы', ['Шапка и возврат в каталог', 'Название, обозначение и категория', 'Описание и размерность', 'Формула и коэффициент', 'Подвал']],
+  ['Главная и конвертер', ['Справочник единиц измерения', 'Конвертер: значение, из, в, результат', 'Популярные категории']],
+  ['Каталог единиц', ['Каталог единиц измерения', 'Поиск по названию или обозначению', 'Фильтр по категории', 'Таблица единиц измерения']],
+  ['Карточка единицы', ['Название, обозначение и категория', 'Описание и размерность', 'Формула и коэффициент']],
 ];
 
 const variants = [
@@ -37,8 +37,8 @@ function diagram(name, width, height, blocks, index) {
   const blockHeight = Math.max(62, Math.floor((available - gap * (blocks.length - 1)) / blocks.length));
   let id = index * 100 + 2;
   let xml = '';
-  xml += cell(id++, `${name}`, 'rounded=0;whiteSpace=wrap;html=1;fillColor=#172554;fontColor=#ffffff;strokeColor=#172554;fontSize=18;fontStyle=1;align=left;spacingLeft=20;', 0, 0, width, headerHeight);
-  xml += cell(id++, 'Навигация', 'rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#93c5fd;fontColor=#1e3a8a;fontSize=12;', Math.max(width - 150, margin), 14, Math.min(120, width - margin * 2), 36);
+  xml += cell(id++, 'Мера', 'rounded=0;whiteSpace=wrap;html=1;fillColor=#172554;fontColor=#ffffff;strokeColor=#172554;fontSize=18;fontStyle=1;align=left;spacingLeft=20;', 0, 0, width, headerHeight);
+  xml += cell(id++, width < 500 ? 'Меню' : 'Главная   Каталог   О проекте', 'rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#93c5fd;fontColor=#1e3a8a;fontSize=12;', Math.max(width - (width < 500 ? 100 : 260) - margin, margin), 14, width < 500 ? 80 : 240, 36);
   let y = headerHeight + 32;
   blocks.forEach((block, blockIndex) => {
     const fill = blockIndex === 0 ? '#eff6ff' : '#ffffff';
