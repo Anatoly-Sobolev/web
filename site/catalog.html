@@ -6,29 +6,63 @@
   <title>Каталог единиц — Мера</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body data-page="catalog">
   <header class="header">
     <div class="container header__content">
-      <a class="logo" href="index.html">⌁ Мера</a>
-      <nav class="navigation" aria-label="Основная навигация">
-        <a href="index.html">Главная</a><a href="catalog.html">Каталог</a><a href="index.html#about">О проекте</a>
+      <a class="logo" href="index.html"><svg class="icon" aria-hidden="true"><use href="img/icons.svg#ruler"></use></svg>Мера</a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Открыть меню">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="navigation" id="main-nav" aria-label="Основная навигация">
+        <a href="index.html">Главная</a>
+        <a href="catalog.html" aria-current="page">Каталог</a>
+        <a href="index.html#about">О проекте</a>
       </nav>
-      <a class="menu-button" href="index.html" aria-label="Перейти на главную">☰</a>
     </div>
   </header>
+
   <main class="container main">
-    <section class="intro"><h1>Каталог единиц</h1><p>Найдите нужную единицу измерения.</p></section>
-    <form class="filters">
-      <label>Поиск по названию или обозначению<input type="search" placeholder="Введите запрос, например, метр..."></label>
-      <label>Категория<select><option>Все категории</option><option>Длина</option><option>Масса</option><option>Время</option><option>Температура</option></select></label>
+    <section class="intro">
+      <h1>Каталог единиц</h1>
+      <p>Найдите нужную единицу измерения по названию, обозначению или категории.</p>
+    </section>
+
+    <form class="filters" data-catalog-filters role="search">
+      <label class="field">
+        <span class="field__label">Поиск по названию или обозначению</span>
+        <span class="search">
+          <svg class="icon search__icon" aria-hidden="true"><use href="img/icons.svg#search"></use></svg>
+          <input class="field__control" type="search" name="q" placeholder="Введите запрос, например, метр…" autocomplete="off">
+        </span>
+      </label>
+      <label class="field">
+        <span class="field__label">Категория</span>
+        <select class="field__control" name="category" data-category-select>
+          <option value="">Все категории</option>
+        </select>
+      </label>
     </form>
-    <section class="unit-list" aria-label="Единицы измерения">
-      <article class="unit-card"><div><a href="unit.html">Метр</a><span class="symbol">м</span></div><p>Категория: <strong>Длина</strong></p><p>Основная единица длины в СИ</p></article>
-      <article class="unit-card"><div><a href="unit.html">Километр</a><span class="symbol">км</span></div><p>Категория: <strong>Длина</strong></p><p>1000 метров</p></article>
-      <article class="unit-card"><div><a href="unit.html">Сантиметр</a><span class="symbol">см</span></div><p>Категория: <strong>Длина</strong></p><p>0.01 метра</p></article>
-      <article class="unit-card"><div><a href="unit.html">Миллиметр</a><span class="symbol">мм</span></div><p>Категория: <strong>Длина</strong></p><p>0.001 метра</p></article>
+
+    <p class="catalog-summary" data-catalog-summary aria-live="polite"></p>
+
+    <section class="table-card" aria-label="Единицы измерения">
+      <table class="unit-table">
+        <thead>
+          <tr><th scope="col">Название</th><th scope="col">Обозначение</th><th scope="col">Категория</th><th scope="col">Коэффициент к СИ</th></tr>
+        </thead>
+        <tbody data-unit-rows></tbody>
+      </table>
+      <div class="empty-state" data-empty-state hidden>
+        <svg class="icon empty-state__icon" aria-hidden="true"><use href="img/icons.svg#search"></use></svg>
+        <p class="empty-state__title">Ничего не найдено</p>
+        <p>Измените запрос или выберите другую категорию.</p>
+        <button class="button button--secondary" type="button" data-reset-filters>Сбросить фильтры</button>
+      </div>
     </section>
   </main>
+
   <footer class="footer"><div class="container">© 2026 Мера — справочник единиц измерения</div></footer>
+  <script src="js/units-data.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

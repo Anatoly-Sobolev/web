@@ -1,0 +1,48 @@
+# Повторяемое окружение «Мера» для Linux/Docker: NGINX + PHP-FPM + PostgreSQL.
+# Запуск: docker compose up -d   →   http://localhost:8080/
+# В Windows-окружении лабораторной работы используется server/start.ps1 (Docker не установлен).
+services:
+  nginx:
+    image: nginx:1.30-alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/var/www/app:ro
+      - ./site:/var/www/site:ro
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - php
+
+  php:
+    build: ./docker/php
+    volumes:
+      - ./app:/var/www/app:ro
+    environment:
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_NAME: mera
+      DB_USER: mera_app
+      DB_PASSWORD: ${DB_PASSWORD:-mera_dev_password}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_DB: mera
+      POSTGRES_USER: mera_app
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-mera_dev_password}
+    volumes:
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./database/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+      - pgdata:/var/lib/postgresql
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mera_app -d mera"]
+      interval: 5s
+      retries: 10
+
+volumes:
+  pgdata:

@@ -1,0 +1,15 @@
+# Портативные NGINX и PHP, журналы и временные файлы локального сервера
+server/bin/
+server/logs/
+server/temp/
+server/nginx/generated/
+
+# Локальный кластер PostgreSQL и пароли
+.local/
+app/config/local.php
+
+# Настройки локальных инструментов
+.claude/
+
+# Кэш Python
+__pycache__/

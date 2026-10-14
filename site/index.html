@@ -6,43 +6,65 @@
   <title>Мера — конвертер единиц</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body data-page="home">
   <header class="header">
     <div class="container header__content">
-      <a class="logo" href="index.html">⌁ Мера</a>
-      <nav class="navigation" aria-label="Основная навигация">
-        <a href="index.html">Главная</a>
+      <a class="logo" href="index.html"><svg class="icon" aria-hidden="true"><use href="img/icons.svg#ruler"></use></svg>Мера</a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Открыть меню">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="navigation" id="main-nav" aria-label="Основная навигация">
+        <a href="index.html" aria-current="page">Главная</a>
         <a href="catalog.html">Каталог</a>
         <a href="#about">О проекте</a>
       </nav>
-      <a class="menu-button" href="catalog.html" aria-label="Открыть каталог">☰</a>
     </div>
   </header>
+
   <main class="container main">
     <section class="intro">
       <h1>Конвертер единиц измерения</h1>
-      <p>Введите значение и выберите единицы измерения.</p>
+      <p>Простой и быстрый инструмент для точного перевода величин</p>
     </section>
+
     <section class="panel" aria-labelledby="converter-title">
       <h2 id="converter-title" class="visually-hidden">Конвертер</h2>
-      <form class="converter">
-        <label>Значение<input type="number" value="100"></label>
-        <label>Из<select><option>Метры</option><option>Сантиметры</option><option>Километры</option></select></label>
-        <label>В<select><option>Сантиметры</option><option>Метры</option><option>Миллиметры</option></select></label>
-        <button type="button">Конвертировать</button>
+      <form class="converter" data-converter novalidate>
+        <label class="field">
+          <span class="field__label">Значение</span>
+          <input class="field__control" type="text" name="value" inputmode="decimal" value="100" autocomplete="off" aria-describedby="converter-error">
+        </label>
+        <label class="field">
+          <span class="field__label">Из</span>
+          <select class="field__control" name="from" data-unit-select></select>
+        </label>
+        <label class="field">
+          <span class="field__label">В</span>
+          <select class="field__control" name="to" data-unit-select></select>
+        </label>
+        <button class="button" type="submit">Конвертировать</button>
       </form>
-      <p class="result">Результат: 10 000 см</p>
-    </section>
-    <section class="categories">
-      <h2>Популярные категории</h2>
-      <div class="category-grid">
-        <a class="category-card" href="catalog.html">📏 <span>Длина</span></a>
-        <a class="category-card" href="catalog.html">⚖ <span>Масса</span></a>
-        <a class="category-card" href="catalog.html">◷ <span>Время</span></a>
-        <a class="category-card" href="catalog.html">🌡 <span>Температура</span></a>
+      <div class="result" data-result role="status" aria-live="polite" hidden>
+        <span class="result__label">Результат конвертации</span>
+        <strong class="result__value" data-result-value></strong>
+        <span class="result__formula" data-result-formula></span>
       </div>
+      <p class="message message--error" id="converter-error" data-error role="alert" hidden></p>
+    </section>
+
+    <section class="categories" aria-labelledby="categories-title">
+      <h2 id="categories-title">Категории</h2>
+      <div class="category-grid" data-category-grid></div>
+    </section>
+
+    <section class="about" id="about" aria-labelledby="about-title">
+      <h2 id="about-title">О проекте</h2>
+      <p>«Мера» — учебный справочник единиц измерения: конвертер величин, каталог единиц по категориям, поиск по названию и обозначению, коэффициенты и формулы пересчёта в базовую единицу СИ.</p>
     </section>
   </main>
-  <footer id="about" class="footer"><div class="container">© 2026 Мера — справочник единиц измерения</div></footer>
+
+  <footer class="footer"><div class="container">© 2026 Мера — справочник единиц измерения</div></footer>
+  <script src="js/units-data.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
