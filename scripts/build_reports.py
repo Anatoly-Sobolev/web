@@ -58,6 +58,7 @@ class Report:
         normal.font.name = 'Times New Roman'
         normal.font.size = Pt(12)
         normal.element.rPr.rFonts.set(qn('w:eastAsia'), 'Times New Roman')
+        self._set_language()
         normal.paragraph_format.line_spacing = 1.15
         normal.paragraph_format.space_after = Pt(0)
         normal.paragraph_format.space_before = Pt(0)
@@ -91,6 +92,33 @@ class Report:
         footer = section.footer.paragraphs[0]
         footer.alignment = WD_ALIGN_PARAGRAPH.CENTER
         self._field(footer.add_run(), 'PAGE')
+
+    def _set_language(self):
+        # Язык правки — русский, чтобы Word не подчёркивал русские слова.
+        styles = self.doc.styles.element
+        defaults = styles.find(qn('w:docDefaults'))
+        targets = []
+        if defaults is not None:
+            rpr_default = defaults.find(qn('w:rPrDefault'))
+            if rpr_default is not None:
+                targets.append(rpr_default.find(qn('w:rPr')))
+        targets.append(self.doc.styles['Normal'].element.get_or_add_rPr())
+        for rpr in targets:
+            if rpr is None:
+                continue
+            for old in rpr.findall(qn('w:lang')):
+                rpr.remove(old)
+            lang = OxmlElement('w:lang')
+            lang.set(qn('w:val'), 'ru-RU')
+            lang.set(qn('w:eastAsia'), 'ru-RU')
+            lang.set(qn('w:bidi'), 'ar-SA')
+            rpr.append(lang)
+        settings = self.doc.settings.element
+        theme = settings.find(qn('w:themeFontLang'))
+        if theme is None:
+            theme = OxmlElement('w:themeFontLang')
+            settings.append(theme)
+        theme.set(qn('w:val'), 'ru-RU')
 
     @staticmethod
     def _field(run, code):
@@ -162,15 +190,16 @@ class Report:
         self.doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
 
     def h1(self, text, new_page=True):
-        if new_page:
-            self.page_break()
         par = self.doc.add_paragraph(text.upper(), style='Heading 1')
+        par.paragraph_format.page_break_before = new_page
         self.headings.append((1, text.upper()))
         return par
 
     def h2(self, text):
         self.headings.append((2, text))
-        return self.doc.add_paragraph(text, style='Heading 2')
+        par = self.doc.add_paragraph(text, style='Heading 2')
+        par.paragraph_format.page_break_before = True
+        return par
 
     def h3(self, text):
         self.headings.append((3, text))
