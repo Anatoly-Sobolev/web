@@ -59,9 +59,10 @@ $selectOptions = static function (string $selected) use ($categories, $byCategor
         echo '<optgroup label="' . e($category['name']) . '" data-category="' . e($category['slug']) . '">';
         foreach ($byCategory[$category['slug']] as $unit) {
             printf(
-                '<option value="%s" data-factor="%s" data-offset="%s" data-symbol="%s" data-category="%s"%s>%s (%s)</option>',
+                '<option value="%s" data-factor="%s" data-offset="%s" data-symbol="%s" data-category="%s" data-name="%s" data-search="%s"%s>%s (%s)</option>',
                 e($unit['slug']), e($unit['factor']), e($unit['offset_si']), e($unit['symbol']),
-                e($unit['category_slug']), $unit['slug'] === $selected ? ' selected' : '',
+                e($unit['category_slug']), e($unit['name']), e($unit['name_en'] . ' ' . $unit['symbol_intl']),
+                $unit['slug'] === $selected ? ' selected' : '',
                 e($unit['name']), e($unit['symbol'])
             );
         }
