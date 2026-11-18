@@ -297,6 +297,7 @@ class Report:
 
     def abstract(self, summary, keywords, obj, goal, methods, results, scope):
         self.h1('Реферат')
+        self._abstract_stats = self.p('')
         self.p(summary)
         self.p('')
         self.p(keywords.upper())
@@ -341,6 +342,10 @@ class Report:
                 self.p(f'{i}. {item}', align='left', indent=False)
 
     def save(self, path):
+        self._abstract_stats.add_run(
+            f"Объём отчёта: {self.toc_pages.get('__pages__', 0)} с., "
+            f"{self.figure_no} рис., {self.table_no} табл."
+        )
         self.fill_toc()
         self.doc.save(path)
 
@@ -389,6 +394,7 @@ def locate(headings, pages):
                 result[text] = i + 1
                 cursor = i
                 break
+    result['__pages__'] = len(pages)
     return result
 
 
